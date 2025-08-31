@@ -1,5 +1,5 @@
-import { addAttendee, addTicketToEvent } from '../DAO/event.dao'
-import { purchaseTicket } from '../DAO/ticket.dao'
+import { addAttendee, addTicketToEvent } from '../DAO/event.dao.js'
+import { deleteTicket, getAllTickets, getTicketById, getTicketByUser, getTicketsByEvent, purchaseTicket, updateTicket } from '../DAO/ticket.dao.js'
 import { addTicket } from '../DAO/user.dao.js'
 import {badResponse, goodResponse} from '../utils/response.js'
 
@@ -35,4 +35,80 @@ export const purchaseTicketController = async (req, res) => {
   }
 };
 
+export const getTicketByIdController = async (req,res) =>{
+    try {
+        const ticketId = req.params.id
+        if(!ticketId) return badResponse(res,400,"Invalid id provided")
+        const ticket = await getTicketById(ticketId)
+        if(!ticket) return badResponse(res,400,"Ticket not found")
+        return goodResponse(res,200,"fetched ticket successfully",ticket)
+    } catch (error) {
+        console.log(error.message)
+        return badResponse(res,400,"Error while fetching ticket by id")
+    }
+}
 
+
+export const getTicketsByUserIdController = async (req,res)=>{
+    try {
+        const user = req.user
+        if(!user) return badResponse(res,400,"user is not authenticated")
+        const tickets = await getTicketByUser(user._id)
+        if(!tickets) return badResponse(res,400,"No ticket found")
+        return goodResponse(res,200,"Fetched tickets successfully",tickets)
+    } catch (error) {
+        console.log(error.message)
+        return badResponse(res,400,"Error while fetching tickets for the user")
+    }
+}
+
+export const getTicketByEventIdController = async (req,res)=>{
+    try {
+        const eventId = req.params.id
+        if(!eventId) return badResponse(res,400,"Invalid id provided")
+        const tickets = await getTicketsByEvent(eventId)
+        if(!tickets) return badResponse(res,400,"Tickets not found for this event")
+        return goodResponse(res,200,"Fetched tickets successfully",tickets)
+    } catch (error) {
+        console.log(error.message)
+        return badResponse(res,400,"Error while fetching tickets")
+    }
+}
+
+export const updateTicketController = async (req,res)=>{
+    try {
+        const ticketId = req.params.id
+        if(!ticketId) return badResponse(res,400,"Invalid ticket id")
+        const {newDate} = req.body
+        const ticket = await updateTicket(ticketId,newDate)
+        if(!ticket) return badResponse(res,400,"No ticket found")
+        return goodResponse(res,200,"Ticket updated successfully",ticket)
+    } catch (error) {
+        console.log(error.message)
+        return badResponse(res,400,"Error while updating ticket")
+    }
+}
+
+export const deleteTicketController = async (req,res)=>{
+    try {
+        const ticketId = req.params.id
+        if(!ticketId) return badResponse(res,400,"Invalid ticket id")
+        const ticket = await deleteTicket(ticketId)
+        if(!ticket) return badResponse(res,400,"Ticket not found")
+        return goodResponse(res,200,"Ticket Deleted successfully",ticket)
+    } catch (error) {
+        console.log(error.message)
+        return badResponse(res,400,"Error while deleting the ticket")
+    }
+}
+
+export const getAllTicketController = async ( req,res)=>{
+    try {
+        const tickets = await getAllTickets()
+        if(!tickets) return badResponse(res,400,"No tickets found")
+        return goodResponse(res,200,"Fetched tickets successfully",tickets)
+    } catch (error) {
+        console.log(error.message)
+        return badResponse(res,400,"Error while fetching all the tickets")
+    }
+}

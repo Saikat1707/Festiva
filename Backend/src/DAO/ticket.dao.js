@@ -27,8 +27,6 @@ export const getTicketById = async (id) => {
   }
 };
 
-
-
 export const getTicketByUser = async (userId) => {
 
   try {
@@ -47,9 +45,6 @@ export const getTicketByUser = async (userId) => {
 export const getTicketsByEvent = async (eventId) => {
   try {
     const tickets = await Ticket.find({ event: eventId }).populate("purchaser");
-
-    if (tickets.length === 0) throw new Error("No tickets for this event yet");
-
     return tickets;
   } catch (error) {
     console.error("getTicketsByEvent Error:", error.message);
@@ -89,9 +84,6 @@ export const deleteTicket = async (ticketId) => {
 export const getAllTickets = async () => {
   try {
     const tickets = await Ticket.find().populate("purchaser event");
-
-    if (tickets.length === 0) throw new Error("No tickets found");
-
     return tickets;
   } catch (error) {
     console.error("getAllTickets Error:", error.message);

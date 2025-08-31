@@ -17,7 +17,7 @@ const ticketSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, 
     ref: "Event" 
   },
-  ticketStatus:{type:String,default:"pending"},
+  ticketStatus:{type:String,default:"Pending"},
   purchasedAt: { type: Date, default: Date.now },
   ticketCode: { type: String, unique: true, default: uuidv4 },
   qrCodeImage: { type: String } 
