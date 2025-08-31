@@ -1,4 +1,4 @@
-import { createEvent, getEventDetails, updateEvent } from "../DAO/event.dao.js"
+import { createEvent, deleteEvent, getAllEvents, getEventByStatus, getEventDetails, updateEvent, updateEventStatus } from "../DAO/event.dao.js"
 import { badResponse, goodResponse } from "../utils/response.js"
 
 export const createEventController = async (req,res)=>{
@@ -54,5 +54,56 @@ export const updateEventController = async(req,res)=>{
     } catch (error) {
         console.log("Error in update event controller "+error.message)
         return badResponse(res,400,"Error in updating the event ")
+    }
+}
+
+export const getAllEventController = async (req,res)=>{
+    try {
+        const events = await getAllEvents()
+        if(!events) return badResponse(res,400,"No event present in the DataBase")
+        return goodResponse(res,200,"Fetched All events successfully",events)
+    } catch (error) {
+        console.log(error.message)
+        return badResponse(res,400,"Error while fetching all events")
+    }
+}
+
+export const deleteEventController = async (req,res)=>{
+    try {
+        const eventId = req.params.id
+        if(!eventId) return badResponse(res,400,"Invalid event id")
+        const deletedEvent = await deleteEvent(eventId)
+        if(!deletedEvent) return badResponse(res,400,"No events present in the database")
+        return goodResponse(res,200,"delete event successfully",deletedEvent)
+    } catch (error) {
+        console.log(error.message)
+        return badResponse(res,400,"Error while deleting event")
+    }
+}
+
+export const updateEventStatusController = async (req,res)=>{
+    try {
+        const eventId = req.params.id
+        if(!eventId) return badResponse(res,400,"Invalid event id")
+        const {status} = req.body
+        const updatedEvent = await updateEventStatus(eventId,status)
+        if(!updatedEvent) return badResponse(res,400,"Error while updating status of event")
+        return goodResponse(res,200,"Event status updated successfully",updatedEvent)
+    } catch (error) {
+        console.log(error.message)
+        return badResponse(res,400,"Error in updating the status of the event")
+    }
+}
+
+export const getEventByStatusController = async (req,res)=>{
+    try {
+        const status = req.params.status
+        if(!status) return badResponse(res,400,"Invalid status provided")
+        const evenets = await getEventByStatus(status)
+        if(!evenets) return badResponse(res,400,"No Evenents found in this status")
+        return goodResponse(res,200,"Fetched event successfully",evenets)
+    } catch (error) {
+        console.log(error.message)
+        return badResponse(res,400,"Error while fetching the events")
     }
 }

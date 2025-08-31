@@ -57,3 +57,38 @@ export const getNotificationDetails = async (id)=>{
         throw new Error("Error while fetching details")
     }
 }
+
+export const signIn = async (email)=>{
+    try {
+        const user = await userModel.findOne({email:email})
+        return user;
+    } catch (error) {
+        console.log(error)
+        throw new Error("Error in sign in DAO ")
+    }
+}
+
+export const addTicket = async (userId, ticketId) => {
+  try {
+    if (!ticketId || !userId) {
+      throw new Error("Invalid ticket id or user id");
+    }
+
+    // Find the user
+    const user = await userModel.findById(userId);
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // Push ticket to history
+    user.ticketHistory.push(ticketId);
+
+    // Save updated user
+    await user.save();
+
+    return user;
+  } catch (error) {
+    console.error("Error adding ticket:", error.message);
+    throw new Error("Failed to add ticket");
+  }
+};
