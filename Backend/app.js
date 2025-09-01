@@ -37,9 +37,11 @@ app.use(
 import userRouter from "./src/routes/user.routes.js"
 import eventRouter from "./src/routes/event.routes.js"
 import ticketRouter from "./src/routes/ticket.routes.js"
+import paymentRouter from "./src/routes/payment.routes.js"
 app.use('/api/user',userRouter)
 app.use('/api/event',eventRouter)
 app.use('/api/ticket',ticketRouter)
+app.use('/api/payment',paymentRouter)
 export default app
 
 

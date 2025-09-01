@@ -1,4 +1,5 @@
-import { createEvent, deleteEvent, getAllEvents, getEventByStatus, getEventDetails, updateEvent, updateEventStatus } from "../DAO/event.dao.js"
+import { createEvent, deleteEvent, getAllEventForTheUser, getAllEvents, getEventByStatus, getEventDetails, updateEvent, updateEventStatus } from "../DAO/event.dao.js"
+import { updateTicket } from "../DAO/ticket.dao.js"
 import { badResponse, goodResponse } from "../utils/response.js"
 
 export const createEventController = async (req,res)=>{
@@ -11,8 +12,12 @@ export const createEventController = async (req,res)=>{
         if(!user) return badResponse(res,400,"User is unauthorized")
 
         const createdEvent = await createEvent(eventTitle,eventDescription,eventPoster,eventDate,ticketDetails,user._id)
-
         if(!createdEvent) return badResponse(res,400,"Event not created")
+            
+        if (!user.isHost) {
+            user.isHost = true;
+            await user.save();
+        }
         return goodResponse(res,200,"event created successfully",createdEvent)
         
     } catch (error) {
@@ -41,14 +46,16 @@ export const getEventController = async (req, res) => {
 
 export const updateEventController = async(req,res)=>{
     try {
-        const {eventTitle,eventDescription,eventPoster,eventDate,ticketDetails} = req.body
+        const {eventTitle,eventDescription,eventPoster,eventDate,ticketDetails,ticketStatus} = req.body
         const eventId = req.params.id
         if(!eventId) return badResponse(res,400,"Can not get event id")
         if(!eventTitle || !eventDescription || !eventPoster || 
             !eventDate || !ticketDetails) return badResponse(res,400,"All fields are required")
 
         const updatedEvent = await updateEvent(eventId,eventTitle,eventDescription,eventPoster,eventDate,ticketDetails)
-        if(!updatedEvent) return badResponse(res,400,"Event updated")
+        if(!updatedEvent) return badResponse(res,400,"Event not updated")
+
+        if(ticketStatus) await updateTicket(updatedEvent._id,ticketStatus)
         return goodResponse(res,200,"Sucessfully update the event ",updatedEvent)
 
     } catch (error) {
@@ -105,5 +112,17 @@ export const getEventByStatusController = async (req,res)=>{
     } catch (error) {
         console.log(error.message)
         return badResponse(res,400,"Error while fetching the events")
+    }
+}
+
+export const getEventsCreatedByUserController = async (req,res)=>{
+    try {
+        const user = req.user
+        if(!user) return badResponse(res,400,"Unauthorized user")
+        const events = await getAllEventForTheUser(user._id)
+        return goodResponse(res,200,"Fetch all events",events)
+    } catch (error) {
+        console.log(error.message)
+        return badResponse(res,400,"Error while fetching events for the user")
     }
 }

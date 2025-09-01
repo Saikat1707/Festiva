@@ -52,21 +52,25 @@ export const getTicketsByEvent = async (eventId) => {
   }
 };
 
-export const updateTicket = async (ticketId, updateData) => {
+export const updateTicket = async (eventId, ticketStatus) => {
   try {
-    const ticket = await Ticket.findByIdAndUpdate(ticketId, updateData, {
-      new: true, // return updated ticket
-      runValidators: true // ensure schema validation
-    });
+    const result = await Ticket.updateMany(
+      { event: eventId },                  
+      { $set: { ticketStatus: ticketStatus } },
+      { runValidators: true }
+    );
 
-    if (!ticket) throw new Error("Ticket not found");
+    if (result.modifiedCount === 0) {
+      throw new Error("No tickets updated for this event");
+    }
 
-    return ticket;
+    return result;
   } catch (error) {
     console.error("updateTicket Error:", error.message);
     throw new Error("Error while updating ticket DAO");
   }
 };
+
 
 export const deleteTicket = async (ticketId) => {
   try {

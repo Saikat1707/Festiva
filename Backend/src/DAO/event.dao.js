@@ -71,7 +71,7 @@ export const getAllEvents = async () => {
     return await Event.find()
       .populate("createdBy", "userName email")
       .populate("attendees", "userName email")
-      .populate("tickets");
+      .populate("tickets","ticketType price seatNumber seatCount");
   } catch (error) {
     console.error("❌ Error in getAllEvents:", error.message);
     throw new Error("Error while fetching all events");
@@ -175,3 +175,17 @@ export const getEventByStatus = async (status) => {
     throw new Error("Failed to fetch events by status");
   }
 };
+
+
+export const getAllEventForTheUser = async (userId)=>{
+  try {
+    const events = await Event.find({createdBy:userId})
+    .populate("attendees","userName email")
+    .populate("tickets","ticketType price seatNumber ticketCount")
+    if(!events) throw new Error("No event been created")
+    return events
+  } catch (error) {
+    console.log(error.message)
+    throw new Error("Error in fetching events DAO")
+  }
+}
