@@ -1,0 +1,327 @@
+/* NavBarCSS.css */
+
+:root {
+  --dark-bg: #0f0f14;
+  --darker-bg: #09090c;
+  --nav-item-bg: #151521;
+  --accent-color: #7e3af2;
+  --accent-hover: #9061f9;
+  --text-primary: #e5e7eb;
+  --text-secondary: #9ca3af;
+  --notification-color: #ff5c5c;
+  --transition-speed: 0.3s;
+}
+
+.Main_Nav_Container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 85px;
+  background: linear-gradient(180deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem 0;
+  gap: 2rem;
+  box-shadow: 8px 0 25px rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+  transition: width var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.Main_Nav_Container.expanded {
+  width: 240px;
+}
+
+.nav_brand_logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0 1.25rem;
+  width: 100%;
+}
+
+.logo-image {
+  height: 38px;
+  width: auto;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  /* filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%); */
+}
+
+.Main_Nav_Container.expanded .logo-image {
+  transform: rotateY(360deg);
+}
+
+.brand-text {
+  color: var(--text-primary);
+  font-family: "Asimovian";
+  font-size: 1.5rem;
+  font-weight: 700;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all var(--transition-speed) ease;
+}
+
+.Main_Nav_Container.expanded .brand-text {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.nav_items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0 0.75rem;
+}
+
+.nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.nav-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: linear-gradient(to bottom, var(--accent-color), #6c2bd9);
+  border-radius: 0 4px 4px 0;
+  transform: scaleY(0);
+  transition: transform var(--transition-speed) ease;
+}
+
+.nav-item:hover {
+  background: var(--nav-item-bg);
+  color: var(--text-primary);
+  transform: translateX(5px);
+}
+
+.nav-item:hover::before {
+  transform: scaleY(1);
+}
+
+.nav-item.active {
+  background: rgba(126, 58, 242, 0.15);
+  color: var(--accent-color);
+}
+
+.nav-item.active::before {
+  transform: scaleY(1);
+}
+
+.icon-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  transition: transform var(--transition-speed) ease;
+}
+
+.nav-item:hover .icon-container {
+  transform: scale(1.15);
+}
+
+.nav-icon {
+  font-size: 1.4rem;
+  transition: all var(--transition-speed) ease;
+}
+
+.nav-item.active .nav-icon {
+  color: var(--accent-color);
+}
+
+.nav-label {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all var(--transition-speed) ease;
+  white-space: nowrap;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.Main_Nav_Container.expanded .nav-label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.active-indicator {
+  position: absolute;
+  right: 1rem;
+  width: 6px;
+  height: 6px;
+  background: var(--accent-color);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0);
+  transition: all var(--transition-speed) ease;
+}
+
+.nav-item.active .active-indicator {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: var(--notification-color);
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: bold;
+  animation: pulse 2s infinite;
+  box-shadow: 0 0 10px rgba(255, 92, 92, 0.5);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 92, 92, 0.7);
+  }
+  70% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 6px rgba(255, 92, 92, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 92, 92, 0);
+  }
+}
+
+.nav-footer {
+  margin-top: auto;
+  padding: 1rem;
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.theme-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all var(--transition-speed) ease;
+}
+
+.Main_Nav_Container.expanded .theme-indicator {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.theme-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--accent-color);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent-color);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .Main_Nav_Container {
+    bottom: 0;
+    top: auto;
+    height: 70px;
+    width: 100vw;
+    flex-direction: row;
+    padding: 0 1rem;
+    gap: 0;
+  }
+  
+  .nav_brand_logo {
+    display: none;
+  }
+  
+  .nav_items {
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 0;
+    gap: 0;
+  }
+  
+  .nav-item {
+    padding: 0.6rem;
+    flex-direction: column;
+    gap: 0.25rem;
+    width: auto;
+  }
+  
+  .nav-label {
+    font-size: 0.7rem;
+    opacity: 1;
+    transform: none;
+  }
+  
+  .nav-icon {
+    font-size: 1.3rem;
+  }
+  
+  .notification-badge {
+    top: 0;
+    right: 0;
+  }
+  
+  .nav-item::before {
+    width: 100%;
+    height: 3px;
+    top: auto;
+    bottom: 0;
+    border-radius: 4px 4px 0 0;
+    transform: scaleX(0);
+  }
+  
+  .nav-item:hover::before {
+    transform: scaleX(1);
+  }
+  
+  .nav-footer {
+    display: none;
+  }
+  
+  .active-indicator {
+    display: none;
+  }
+}
+
+/* Smooth scrollbar styling */
+.Main_Nav_Container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.Main_Nav_Container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.Main_Nav_Container::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: 4px;
+}
+
+/* Focus states for accessibility */
+.nav-item:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}

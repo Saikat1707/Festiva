@@ -5,11 +5,10 @@ import crypto from "crypto"
 
 export const processMyPayment = async (req,res)=>{
     try {
-        const amount = req.body
+        const {amount} = req.body
         const options = {
-            amount: amount * 100,
+            amount: Number(amount * 100),
             currency: "INR",
-            receipt: `receipt_${Date.now()}`,
         };
         const orderData = await processPaymentDao(options)
         if(!orderData) return badResponse(res,400,"payment Error order not generated")
@@ -24,7 +23,7 @@ export const verifyThePayment = async (req,res)=>{
     try {
         const {razorpay_order_id,razorpay_payment_id,razorpay_signature} = req.body;
         const generatedSignature = crypto
-        .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+        .createHmac("sha256", process.env.RAZOR_PAY_SECRET_KEY)
         .update(razorpay_order_id + "|" + razorpay_payment_id)
         .digest("hex");
 
@@ -33,6 +32,7 @@ export const verifyThePayment = async (req,res)=>{
         }
          const paymentDetails = await instance.payments.fetch(razorpay_payment_id);
         const { method, bank, wallet, vpa, email, contact, status } = paymentDetails;
+        console.log(paymentDetails)
         return goodResponse(res, 200, "Payment success", {
             orderId: razorpay_order_id,
             paymentId: razorpay_payment_id,

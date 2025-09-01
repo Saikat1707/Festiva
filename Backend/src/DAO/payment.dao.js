@@ -4,13 +4,14 @@ import { Payment } from "../models/payment.model.js";
 
 export const processPaymentDao = async (options)=>{
     try {
+        console.log(options)
         const order = await instance.orders.create(options);
         const data = {
             success: true,
             orderId: order.id,
             amount: order.amount,
             currency: order.currency,
-            key: process.env.RAZORPAY_KEY_ID,
+            key: process.env.RAZOR_PAY_KEY_ID,
         }
         return data
     } catch (error) {

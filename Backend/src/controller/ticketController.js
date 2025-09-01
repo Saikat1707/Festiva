@@ -1,3 +1,4 @@
+import { instance } from '../../server.js';
 import { addAttendee, addTicketToEvent } from '../DAO/event.dao.js'
 import { makeEntryOfPayment } from '../DAO/payment.dao.js';
 import { deleteTicket, getAllTickets, getTicketById, getTicketByUser, getTicketsByEvent, purchaseTicket, updateTicket } from '../DAO/ticket.dao.js'
@@ -6,44 +7,62 @@ import {badResponse, goodResponse} from '../utils/response.js'
 
 
 export const purchaseTicketController = async (req, res) => {
+  const {
+    ticketType, price, seatNumber, ticketCount,
+    amount, currency, paymentMethod, order_id,
+    payment_id, bank, wallet, vpa, email, contact
+  } = req.body;
+
+  const purchaser = req.user;
+  const { id: eventId } = req.params;
+
+  if (!ticketType || !price || !seatNumber || !ticketCount) {
+    return badResponse(res, 400, "All fields are required");
+  }
+  if (!purchaser || !eventId) {
+    return badResponse(res, 400, "Purchaser or event id not found");
+  }
+  if (!amount || !currency || !paymentMethod || !order_id || !payment_id || !email || !contact) {
+    return badResponse(res, 400, "Some required payment fields are missing");
+  }
+
+  let ticket, paymentEntry, user;
+
   try {
-    const { ticketType, price, seatNumber, ticketCount,amount,currency,paymentMethod,order_id,
-    payment_id,bank,wallet,vpa,email,contact} = req.body;
-    const purchaser = req.user;
-    const { id: eventId } = req.params;
-
-    if (!ticketType || !price || !seatNumber || !ticketCount) {
-      return badResponse(res, 400, "All fields are required");
-    }
-    if (!purchaser || !eventId) {
-      return badResponse(res, 400, "Purchaser or event id not found");
-    }
-    if(!amount || !currency || !paymentMethod || !order_id || 
-    !payment_id || !bank || !wallet || !vpa || !email || !contact){
-      return badResponse(res,400,"All fields are required")
-    }
-
     // Create ticket
-    const ticket = await purchaseTicket(ticketType,price,seatNumber,ticketCount,purchaser,
-      eventId,Date.now());
+    ticket = await purchaseTicket(
+      ticketType, price, seatNumber, ticketCount,
+      purchaser, eventId, Date.now()
+    );
 
-    // make the payment entry 
-    const paymentEntry = await makeEntryOfPayment(purchaser._id,ticket._id,amount,currency,paymentMethod,order_id,
-    payment_id,bank,wallet,vpa,email,contact)
+    // Create payment entry
+    paymentEntry = await makeEntryOfPayment(
+      purchaser._id, ticket._id, amount, currency,
+      paymentMethod, order_id, payment_id, bank, wallet, vpa, email, contact
+    );
 
-    // Update user with ticket
-    const user = await addTicket(purchaser._id, ticket._id);
-
-    // Update event with attendee and ticket
+    // Update user and event
+    user = await addTicket(purchaser._id, ticket._id);
     await addAttendee(eventId, user._id);
     await addTicketToEvent(eventId, ticket._id);
 
-    return goodResponse(res, 200, "Ticket purchased successfully", {ticket,paymentEntry});
+    return goodResponse(res, 200, "Ticket purchased successfully", { ticket, paymentEntry });
+
   } catch (error) {
-    console.error(error.message);
-    return badResponse(res, 500, "Error while purchasing ticket");
+    console.error("Error in purchase flow:", error.message);
+
+    // Refund payment if it was already made
+    try {
+      await instance.payments.refund(payment_id, { speed: "optimum" });
+      console.log("Refund successful for:", payment_id);
+    } catch (refundErr) {
+      console.error("Refund failed:", refundErr.message);
+    }
+
+    return badResponse(res, 500, "Payment refunded due to DB failure");
   }
 };
+
 
 export const getTicketByIdController = async (req,res) =>{
     try {
