@@ -1,0 +1,126 @@
+
+.carousel-container {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  touch-action: pan-y;
+}
+
+.carousel-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-position: center;
+  display: block;
+}
+
+.carousel-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.carousel-content h3 {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.carousel-content p {
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+.carousel-indicators {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator.active {
+  background: white;
+  transform: scale(1.2);
+}
+
+/* Swipe animation */
+.carousel-slide {
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .carousel {
+    height: 300px;
+  }
+  
+  .carousel-content h3 {
+    font-size: 20px;
+  }
+  
+  .carousel-content p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel {
+    height: 250px;
+  }
+  
+  .carousel-content {
+    padding: 15px;
+  }
+  
+  .carousel-content h3 {
+    font-size: 18px;
+  }
+  
+  .carousel-content p {
+    font-size: 13px;
+  }
+  
+  .carousel-title {
+    font-size: 24px;
+  }
+  
+  .carousel-subtitle {
+    font-size: 14px;
+  }
+}

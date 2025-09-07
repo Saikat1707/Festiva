@@ -47,7 +47,7 @@ const NavBar = () => {
           <div className="icon-container">
             <DiGhostSmall className="nav-icon" />
           </div>
-          <span className="nav-label">Host</span>
+          <span className="nav-label">Host Event</span>
           <div className="active-indicator"></div>
         </li>
         <li 
@@ -117,7 +117,7 @@ const NavBar = () => {
         <div className="theme-indicator">
           <div className="theme-dot"></div>
           <span className=" font-bold">
-            Festiva: <span className="text-purple-400 animate-pulse">Book Your Event</span>
+            Festiva: <span className="text-purple-400">Book Your Event</span>
             </span>
 
         </div>

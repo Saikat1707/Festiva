@@ -1,10 +1,13 @@
 import React from 'react'
-import NavBar from './components/NavBar'
+import '../src/App.css'
+import MainPages from './Routes/MainPages'
+import Authentication from './pages/Authentication'
 
 const App = () => {
   return (
-    <div className='Main_Container'>
-      <NavBar/>
+    <div>
+      {/* <Authentication/> */}
+      <MainPages/>
     </div>
   )
 }

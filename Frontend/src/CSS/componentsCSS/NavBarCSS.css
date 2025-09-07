@@ -1,16 +1,29 @@
 /* NavBarCSS.css */
 
 :root {
-  --dark-bg: #0f0f14;
-  --darker-bg: #09090c;
-  --nav-item-bg: #151521;
-  --accent-color: #7e3af2;
-  --accent-hover: #9061f9;
-  --text-primary: #e5e7eb;
-  --text-secondary: #9ca3af;
-  --notification-color: #ff5c5c;
+  /* Base Dark Theme */
+  --dark-bg: #1a1a1a;         /* Slightly richer black */
+  --darker-bg: #000000;       /* Pure black for contrast */
+  --nav-item-bg: #141414;     /* Deep charcoal */
+  
+  /* Accents */
+  --accent-color: #FFD700;    /* Gold - stands out well on red */
+  --accent-hover: #00C4CC;    /* Teal glow on hover */
+  
+  /* Text Colors */
+  --text-primary: #f5f5f5;    /* Clean white */
+  --text-secondary: #c0c0c0;  /* Soft gray */
+  
+  /* Alerts / Notifications */
+  --notification-color: #ff4444; /* Vivid red, distinct from bg */
+  
+  /* Extra Glow/Effect */
+  --glow-color: rgba(255, 215, 0, 0.6); /* Soft gold glow */
+  
+  /* Transitions */
   --transition-speed: 0.3s;
 }
+
 
 .Main_Nav_Container {
   position: fixed;
@@ -97,7 +110,7 @@
   top: 0;
   height: 100%;
   width: 3px;
-  background: linear-gradient(to bottom, var(--accent-color), #6c2bd9);
+  background: linear-gradient(to bottom, var(--accent-color), #d92bcb);
   border-radius: 0 4px 4px 0;
   transform: scaleY(0);
   transition: transform var(--transition-speed) ease;
