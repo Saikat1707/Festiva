@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../CSS/componentsCSS/HostForm.css';
+import { getCategories, getEventTypes, getTimeZones } from '../BackendData';
 
 const HostForm = () => {
   const [step, setStep] = useState(1);
@@ -38,20 +39,9 @@ const HostForm = () => {
     ]
   });
 
-  const eventTypes = [
-    'Conference', 'Workshop', 'Seminar', 'Networking', 'Concert',
-    'Festival', 'Party', 'Sports', 'Webinar', 'Exhibition'
-  ];
-
-  const categories = [
-    'Business', 'Technology', 'Music', 'Food & Drink', 'Health',
-    'Arts', 'Education', 'Community', 'Sports & Fitness', 'Other'
-  ];
-
-  const timezones = [
-    'UTC', 'EST', 'PST', 'CST', 'MST', 
-    'GMT', 'CET', 'AEST', 'IST', 'JST'
-  ];
+  const eventTypes = getEventTypes()
+  const categories = getCategories()
+  const timezones = getTimeZones()
 
   // Handle input changes
   const handleInputChange = (e) => {

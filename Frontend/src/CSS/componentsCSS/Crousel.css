@@ -1,7 +1,8 @@
-
 .carousel-container {
   width: 100%;
   margin-top: 1rem;
+  display: flex;
+  justify-content: center;
 }
 
 .carousel {
@@ -11,63 +12,138 @@
   overflow: hidden;
   border-radius: 12px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  background: #fff;
   touch-action: pan-y;
 }
 
 .carousel-track {
-  display: flex;
-  width: 100%;
+  width: 50%;
   height: 100%;
-  transition: transform 0.5s ease-in-out;
 }
 
-.carousel-slide {
-  min-width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-.carousel-image {
+.carousel-track img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  background-position: center;
-  display: block;
 }
-
-.carousel-content {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+.eventTexts {
+  width: 50%;
+  background: rgb(0, 0, 0);
+  color: #fff;
   padding: 20px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
-  color: white;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
-.carousel-content h3 {
+.eventTexts h2 {
   font-size: 24px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  border-bottom: 2px solid #fff;
+  padding-bottom: 5px;
 }
 
-.carousel-content p {
-  font-size: 16px;
-  opacity: 0.9;
+.eventTexts .description {
+  font-size: 15px;
+  line-height: 1.5;
+  margin-bottom: 15px;
 }
+
+.eventTexts .event-details p {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.eventTexts .event-details strong {
+  color: #ffd700;
+}
+
+.eventTexts .event-details a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.eventTexts::-webkit-scrollbar {
+  width: 6px;
+}
+
+.eventTexts::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.eventTexts::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+.eventTexts button{
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #fff;
+  color: #000000;
+  border: 2px solid white;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.eventTexts button:hover{
+  background-color: #000000;
+  color: white;
+}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .eventTexts {
+    bottom: 15px;
+    left: 15px;
+    right: 15px;
+    padding: 15px;
+  }
+
+  .eventTexts h2 {
+    font-size: 20px;
+  }
+
+  .eventTexts .description {
+    font-size: 14px;
+  }
+
+  .eventTexts .event-details p {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .eventTexts {
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    padding: 12px;
+  }
+
+  .eventTexts h2 {
+    font-size: 18px;
+  }
+
+  .eventTexts .description {
+    font-size: 13px;
+  }
+
+  .eventTexts .event-details p {
+    font-size: 12px;
+  }
+}
+
 
 .carousel-indicators {
   position: absolute;
-  bottom: 15px;
+  bottom: 5%;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 10px;
+  gap: 8px;
 }
 
 .indicator {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.5);
   cursor: pointer;
@@ -79,7 +155,7 @@
   transform: scale(1.2);
 }
 
-/* Swipe animation */
+/* Swipe animation placeholder if needed */
 .carousel-slide {
   transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
@@ -89,13 +165,13 @@
   .carousel {
     height: 300px;
   }
-  
-  .carousel-content h3 {
-    font-size: 20px;
+
+  .eventTexts h2 {
+    font-size: 18px;
   }
-  
-  .carousel-content p {
-    font-size: 14px;
+
+  .eventTexts p {
+    font-size: 13px;
   }
 }
 
@@ -103,24 +179,19 @@
   .carousel {
     height: 250px;
   }
-  
-  .carousel-content {
-    padding: 15px;
+
+  .eventTexts {
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    padding: 10px;
   }
-  
-  .carousel-content h3 {
-    font-size: 18px;
+
+  .eventTexts h2 {
+    font-size: 16px;
   }
-  
-  .carousel-content p {
-    font-size: 13px;
-  }
-  
-  .carousel-title {
-    font-size: 24px;
-  }
-  
-  .carousel-subtitle {
-    font-size: 14px;
+
+  .eventTexts p {
+    font-size: 12px;
   }
 }

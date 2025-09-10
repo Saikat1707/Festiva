@@ -190,7 +190,7 @@
   justify-content: center;
   width: 48px;
   height: 48px;
-  background-color: transparent;
+  background-color: black;
   border: 2px solid #e5e7eb;
   border-radius: 0.5rem;
   cursor: pointer;
@@ -199,7 +199,7 @@
 
 .event-btn-secondary:hover {
   border-color: #3B1E54;
-  background-color: rgba(59, 30, 84, 0.1);
+  background-color: rgb(59, 30, 84);
 }
 
 /* ===== Responsive Tweaks ===== */

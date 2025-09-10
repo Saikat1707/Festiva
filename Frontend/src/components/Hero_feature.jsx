@@ -1,40 +1,10 @@
 import React from 'react'
 import '../CSS/componentsCSS/HeroFeature.css'
+import { getFeaturedEventInfo } from '../BackendData'
 
 const Hero_feature = () => {
   // Sample featured events data
-  const featuredEvents = [
-    {
-      id: 1,
-      title: "Tech Conference 2023",
-      date: "Oct 15, 2023",
-      time: "9:00 AM - 6:00 PM",
-      location: "San Francisco, CA",
-      image: "https://plus.unsplash.com/premium_photo-1664474653221-8412b8dfca3e?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZXZlbnR8ZW58MHx8MHx8fDA%3D",
-      category: "Conference",
-      price: "$149"
-    },
-    {
-      id: 2,
-      title: "Summer Music Festival",
-      date: "Aug 20, 2023",
-      time: "2:00 PM - 11:00 PM",
-      location: "New York, NY",
-      image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZXZlbnR8ZW58MHx8MHx8fDA%3D",
-      category: "Music",
-      price: "$79"
-    },
-    {
-      id: 3,
-      title: "Food & Wine Expo",
-      date: "Sep 5, 2023",
-      time: "11:00 AM - 8:00 PM",
-      location: "Chicago, IL",
-      image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZXZlbnR8ZW58MHx8MHx8fDA%3D",
-      category: "Food",
-      price: "$95"
-    }
-  ];
+  const featuredEvents = getFeaturedEventInfo()
   
   return (
     <section className="featured-events">

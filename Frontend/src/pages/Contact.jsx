@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
 import '../CSS/pageCSS/Contact.css';
+import { getContactMethod, getFaqs } from '../BackendData';
+import { SiPushbullet } from "react-icons/si";
+import { FaFacebook } from "react-icons/fa";
+import { FaSquareInstagram } from "react-icons/fa6";
+import { FaSquareXTwitter } from "react-icons/fa6";
+import { FaLinkedin } from "react-icons/fa";
+
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -28,7 +35,10 @@ const Contact = () => {
     setTimeout(() => {
       setIsLoading(false);
       setIsSubmitted(true);
-      
+      console.log("form submitted")
+      const {data} = formData
+      console.log(data)
+      console.log(formData)
       // Reset form after 3 seconds
       setTimeout(() => {
         setIsSubmitted(false);
@@ -43,64 +53,8 @@ const Contact = () => {
     }, 1500);
   };
 
-  const contactMethods = [
-    {
-      icon: 'fas fa-envelope',
-      title: 'Email',
-      details: 'support@festiva.com',
-      description: 'Send us an email anytime',
-      action: 'mailto:support@festiva.com'
-    },
-    {
-      icon: 'fas fa-phone',
-      title: 'Phone',
-      details: '+1 (555) 123-4567',
-      description: 'Mon-Fri from 8am to 6pm',
-      action: 'tel:+15551234567'
-    },
-    {
-      icon: 'fas fa-map-marker-alt',
-      title: 'Address',
-      details: '123 Celebration Lane, Party City, CA 90001',
-      description: 'Come visit our office',
-      action: 'https://maps.google.com'
-    },
-    {
-      icon: 'fas fa-comments',
-      title: 'Live Chat',
-      details: 'Available 24/7',
-      description: 'Get instant help',
-      action: '#chat'
-    }
-  ];
-
-  const faqs = [
-    {
-      question: "Do you provide services for both small and large events?",
-      answer: "Absolutely! Whether it's an intimate gathering or a large celebration, we offer tailored solutions for every scale."
-    },
-    {
-      question: "Are your services available nationwide?",
-      answer: "Currently, we operate in select cities across the country. Check our website or contact support for availability in your area."
-    },
-    {
-      question: "What payment methods do you accept?",
-      answer: "We accept all major credit cards, PayPal, and bank transfers for your convenience."
-    },
-    {
-      question: "Is there a cancellation policy?",
-      answer: "Yes, cancellations made at least 72 hours prior to the event are eligible for a full refund. Please refer to our policy for more details."
-    },
-    {
-      question: "Do you offer eco-friendly decoration options?",
-      answer: "Yes, we provide sustainable and environmentally-friendly decorations. Ask our team for green event options."
-    },
-    {
-      question: "How do I track my order or event status?",
-      answer: "Once your event is confirmed, you will receive a tracking link and updates via email and SMS."
-    }
-];
-
+  const contactMethods = getContactMethod()
+  const faqs = getFaqs()
 
   return (
     <div className="contact-container">
@@ -131,7 +85,7 @@ const Contact = () => {
                 rel={method.action.includes('http') ? 'noopener noreferrer' : ''}
               >
                 <div className="method-icon">
-                  <i className={method.icon}></i>
+                  <SiPushbullet/>
                 </div>
                 <div className="method-content">
                   <h3>{method.title}</h3>
@@ -147,11 +101,11 @@ const Contact = () => {
 
           <div className="social-section">
             <h3>Follow Us</h3>
-            <div className="social-links">
-              <a href="#" aria-label="Facebook"><i className="fab fa-facebook-f"></i></a>
-              <a href="#" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
-              <a href="#" aria-label="Twitter"><i className="fab fa-twitter"></i></a>
-              <a href="#" aria-label="Pinterest"><i className="fab fa-pinterest-p"></i></a>
+            <div className="social-links flex gap-2">
+              <a href="#" aria-label="Facebook" className='text-3xl'> <FaFacebook/> </a>
+              <a href="#" aria-label="Instagram" className='text-3xl'><FaSquareInstagram/></a>
+              <a href="#" aria-label="Twitter" className='text-3xl'><FaSquareXTwitter/></a>
+              <a href="#" aria-label="Linkedin" className='text-3xl'><FaLinkedin/></a>
             </div>
           </div>
         </div>
@@ -166,8 +120,8 @@ const Contact = () => {
                 <div className="success-icon">
                   <i className="fas fa-check-circle"></i>
                 </div>
-                <h3>Message Sent Successfully!</h3>
-                <p>We'll get back to you within 24 hours. Thank you for contacting us.</p>
+                <h3 className='text-black'>Message Sent Successfully!</h3>
+                <p className='text-black'>We'll get back to you within 24 hours. Thank you for contacting us.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="contact-form">
