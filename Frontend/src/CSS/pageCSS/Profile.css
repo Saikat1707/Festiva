@@ -353,13 +353,13 @@
   font-size: 1.5rem;
 }
 
-.action-buttons-grid {
+.ProfileAction-buttons-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
 }
 
-.action-btn {
+.ProfileAction-btn {
   background: var(--surface-light);
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -372,17 +372,17 @@
   transition: all 0.3s ease;
 }
 
-.action-btn:hover {
+.ProfileAction-btn:hover {
   border-color: var(--primary);
   transform: translateY(-3px);
 }
 
-.action-btn i {
+.ProfileAction-btn i {
   font-size: 2rem;
   color: var(--primary);
 }
 
-.action-btn span {
+.ProfileAction-btn span {
   color: var(--text-primary);
   font-weight: 600;
 }

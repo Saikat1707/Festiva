@@ -1,6 +1,6 @@
 import React from 'react';
 import '../CSS/pageCSS/About.css';
-
+import photo from '../assets/OwnerPhoto.jpeg'
 const About = () => {
   return (
     <div className="about-container">
@@ -28,7 +28,9 @@ const About = () => {
             </p>
           </div>
           <div className="mission-image">
-            <div className="placeholder-image">Event Planning Image</div>
+            <div className="placeholder-image">
+              <img src="https://images.unsplash.com/photo-1651313947982-59d4049e5834?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+            </div>
           </div>
         </div>
         
@@ -65,19 +67,11 @@ const About = () => {
           </p>
           <div className="team-grid">
             <div className="team-member">
-              <div className="member-photo">Photo</div>
-              <h3>Sarah Johnson</h3>
+              <div className="member-photo">
+                <img src={photo} alt="" />
+              </div>
+              <h3>Saikat Bera</h3>
               <p>Founder & CEO</p>
-            </div>
-            <div className="team-member">
-              <div className="member-photo">Photo</div>
-              <h3>Michael Chen</h3>
-              <p>Head of Creative Solutions</p>
-            </div>
-            <div className="team-member">
-              <div className="member-photo">Photo</div>
-              <h3>Jessica Martinez</h3>
-              <p>Lead Event Coordinator</p>
             </div>
           </div>
         </div>

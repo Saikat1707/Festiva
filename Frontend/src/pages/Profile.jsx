@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
 import '../CSS/pageCSS/Profile.css';
+import {FaStar } from 'react-icons/fa';
+import { IoMdStats } from "react-icons/io";
+import { MdEmojiEvents } from "react-icons/md";
+import { getUserData } from '../BackendData';
 
 const Profile = () => {
   const [activeTab, setActiveTab] = useState('profile');
   const [isEditing, setIsEditing] = useState(false);
   
   // Sample user data
-  const userData = {
-    name: "Alex Johnson",
-    email: "alex.johnson@example.com",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1287&q=80",
-    joinDate: "January 2022",
-    isHost: false,
-    eventsCreated: 0
-  };
+  const userData = getUserData()
 
   // Form state
   const [formData, setFormData] = useState({
@@ -33,14 +30,12 @@ const Profile = () => {
   };
 
   const handleSave = () => {
-    // Here you would typically save the data to your backend
     alert("Profile updated successfully!");
     setIsEditing(false);
   };
 
   const becomeHost = () => {
     alert("Redirecting to host registration...");
-    // Here you would redirect to host registration page
   };
 
   return (
@@ -227,7 +222,7 @@ const Profile = () => {
                   <div className="stat-cards">
                     <div className="stat-card">
                       <div className="stat-icon">
-                        <i className="fas fa-calendar"></i>
+                        <MdEmojiEvents/>
                       </div>
                       <div className="stat-content">
                         <h3>{userData.eventsCreated}</h3>
@@ -237,7 +232,7 @@ const Profile = () => {
 
                     <div className="stat-card">
                       <div className="stat-icon">
-                        <i className="fas fa-ticket-alt"></i>
+                        <IoMdStats/>
                       </div>
                       <div className="stat-content">
                         <h3>128</h3>
@@ -247,7 +242,7 @@ const Profile = () => {
 
                     <div className="stat-card">
                       <div className="stat-icon">
-                        <i className="fas fa-star"></i>
+                        <FaStar/>
                       </div>
                       <div className="stat-content">
                         <h3>4.8</h3>
@@ -258,20 +253,20 @@ const Profile = () => {
 
                   <div className="host-actions">
                     <h3>Quick Actions</h3>
-                    <div className="action-buttons-grid">
-                      <button className="action-btn">
+                    <div className="ProfileAction-buttons-grid">
+                      <button className="ProfileAction-btn">
                         <i className="fas fa-plus"></i>
                         <span>Create Event</span>
                       </button>
-                      <button className="action-btn">
+                      <button className="ProfileAction-btn">
                         <i className="fas fa-chart-bar"></i>
                         <span>View Analytics</span>
                       </button>
-                      <button className="action-btn">
+                      <button className="ProfileAction-btn">
                         <i className="fas fa-wallet"></i>
                         <span>Earnings</span>
                       </button>
-                      <button className="action-btn">
+                      <button className="ProfileAction-btn">
                         <i className="fas fa-cog"></i>
                         <span>Host Settings</span>
                       </button>

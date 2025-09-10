@@ -1,5 +1,6 @@
 import '../CSS/pageCSS/HomePage.css';
 import Crousel from '../components/Crousel';
+import Footer from '../components/Footer';
 import Hero_Category from '../components/Hero_Category';
 import Hero_feature from '../components/Hero_feature';
 import Hero_testimonial from '../components/Hero_testimonial';
@@ -39,6 +40,10 @@ const Home = () => {
       {/* Testimonials Section */}
       <section className="testimonials">
         <Hero_testimonial/>
+      </section>
+      
+      <section className="footer">
+        <Footer/>
       </section>
     </div>
   );

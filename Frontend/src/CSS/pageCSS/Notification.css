@@ -47,59 +47,6 @@
 .notification-actions {
   position: relative;
 }
-
-.action-btn {
-  background: rgb(0, 0, 0);
-  border: none;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  color: white;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s;
-}
-
-.action-btn:hover {
-  background: rgb(241, 241, 239);
-  color: black;
-}
-
-.action-menu {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background: #1e1e1e;
-  color: white;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  padding: 8px 0;
-  width: 200px;
-  z-index: 10;
-  margin-top: 8px;
-}
-
-.action-menu button {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  padding: 10px 16px;
-  border: none;
-  background: none;
-  text-align: left;
-  cursor: pointer;
-  color: white;
-  font-size: 0.9rem;
-}
-
-.action-menu button:hover {
-  background: #393838;
-  color: white;
-}
-
 .notification-filters {
   display: flex;
   padding: 15px 20px;

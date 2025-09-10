@@ -27,7 +27,7 @@ const Hero_feature = () => {
             <div key={event.id} className="event-card">
               <div className="event-image">
                 <img src={event.image} alt={event.title} />
-                <span className="event-category">{event.category}</span>
+                <span className="FeatureEvent-category">{event.category}</span>
                 <div className="event-price">{event.price}</div>
               </div>
               

@@ -1,62 +1,14 @@
 // Tickets.jsx
 import React, { useState } from 'react';
 import '../CSS/pageCSS/Tickets.css';
+import { getTicketdata } from '../BackendData';
+import { FaDownload } from "react-icons/fa";
+import { FcViewDetails } from "react-icons/fc";
+
 
 const Tickets = () => {
   const [activeTab, setActiveTab] = useState('upcoming');
-
-  // Sample ticket data
-  const ticketData = {
-    upcoming: [
-      {
-        id: 1,
-        event: "Coldplay: Music of the Spheres World Tour",
-        date: "June 15, 2023",
-        time: "7:30 PM",
-        venue: "Madison Square Garden, New York",
-        orderNumber: "TH-7582943",
-        ticketHolder: "John Doe (johndoe@example.com)",
-        seats: "Section 102, Row E, Seats 12-13",
-        ticketType: "Standard Admission",
-        quantity: 2,
-        price: 249.98,
-        status: "Confirmed",
-        image: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
-      },
-      {
-        id: 2,
-        event: "Hamilton - Broadway Musical",
-        date: "July 22, 2023",
-        time: "2:00 PM",
-        venue: "Richard Rodgers Theatre, New York",
-        orderNumber: "TH-7625489",
-        ticketHolder: "John Doe (johndoe@example.com)",
-        seats: "Orchestra, Row C, Seat 105",
-        ticketType: "Premium",
-        quantity: 1,
-        price: 199.00,
-        status: "Confirmed",
-        image: "https://images.unsplash.com/photo-1501281667305-0d4e0ab15754?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
-      }
-    ],
-    past: [
-      {
-        id: 3,
-        event: "Local Art Festival",
-        date: "August 5, 2022",
-        time: "10:00 AM",
-        venue: "City Park, Central Area",
-        orderNumber: "TH-7698321",
-        ticketHolder: "John Doe (johndoe@example.com)",
-        seats: "General Admission",
-        ticketType: "Weekend Pass",
-        quantity: 4,
-        price: 120.00,
-        status: "Completed",
-        image: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80"
-      }
-    ]
-  };
+  const ticketData= getTicketdata()
 
   const tickets = ticketData[activeTab];
 
@@ -150,30 +102,17 @@ const Tickets = () => {
                     
                     <div className="ticket-actions">
                       <button className="btn btn-outline btn-sm">
-                        <i className="fas fa-ticket-alt"></i> Transfer
-                      </button>
-                      <button className="btn btn-outline btn-sm">
-                        <i className="fas fa-download"></i> Download
+                        <FaDownload/> Download
                       </button>
                       <button className="btn btn-primary btn-sm">
-                        <i className="fas fa-eye"></i> Details
+                        <FcViewDetails/> Details
                       </button>
                     </div>
                   </div>
                 </div>
                 
                 <div className="ticket-barcode">
-                  <div className="barcode">
-                    <div className="barcode-line"></div>
-                    <div className="barcode-line"></div>
-                    <div className="barcode-line"></div>
-                    <div className="barcode-line"></div>
-                    <div className="barcode-line"></div>
-                    <div className="barcode-line"></div>
-                    <div className="barcode-line"></div>
-                    <div className="barcode-line"></div>
-                  </div>
-                  <div className="barcode-number">{ticket.orderNumber}</div>
+                  <img src={ticket.qrCode} alt="" />
                 </div>
               </div>
             ))

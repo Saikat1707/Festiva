@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import '../CSS/pageCSS/Notification.css';
+import { FaDeleteLeft } from 'react-icons/fa6';
+import { MdDelete } from "react-icons/md";
+import { FaEye } from 'react-icons/fa';
 
 const Notification = () => {
   // Sample notification data
@@ -135,7 +138,7 @@ const Notification = () => {
                         onClick={() => markAsRead(notification.id)}
                         aria-label="Mark as read"
                       >
-                        <i className="fas fa-check"></i>
+                      <FaEye className='text-2xl'/>
                       </button>
                     )}
                     <button 
@@ -143,7 +146,7 @@ const Notification = () => {
                       onClick={() => deleteNotification(notification.id)}
                       aria-label="Delete notification"
                     >
-                      <i className="fas fa-times"></i>
+                    <MdDelete className='text-2xl'/>
                     </button>
                   </div>
                 </div>

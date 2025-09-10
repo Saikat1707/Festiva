@@ -107,6 +107,10 @@
   justify-content: center;
   color: #aaa;
   font-style: italic;
+  overflow: hidden;
+}
+.placeholder-image img{
+  background-position: center;
 }
 
 /* Values Section */
@@ -196,6 +200,7 @@
   justify-content: center;
   color: #aaa;
   font-style: italic;
+  overflow: hidden;
 }
 
 .team-member h3 {
