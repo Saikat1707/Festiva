@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../CSS/pageCSS/Contact.css';
 import { getContactMethod, getFaqs } from '../BackendData';
-import { SiPushbullet } from "react-icons/si";
+import { VscActivateBreakpoints } from "react-icons/vsc";
 import { FaFacebook } from "react-icons/fa";
 import { FaSquareInstagram } from "react-icons/fa6";
 import { FaSquareXTwitter } from "react-icons/fa6";
@@ -85,7 +85,7 @@ const Contact = () => {
                 rel={method.action.includes('http') ? 'noopener noreferrer' : ''}
               >
                 <div className="method-icon">
-                  <SiPushbullet/>
+                  <VscActivateBreakpoints/>
                 </div>
                 <div className="method-content">
                   <h3>{method.title}</h3>

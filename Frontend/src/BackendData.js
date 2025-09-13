@@ -1,3 +1,44 @@
+import axios from './AxiosConfig.jsx'
+
+export const userSignIn = async (email,password)=>{
+  try {
+    const res = await axios.post('/user/signin',{email,password}) 
+    console.log(res.data.data)
+    return res.data.data
+  } catch (err) {
+    console.log(err)
+    throw new Error(err?.response?.data?.message || "Sign in failed"); 
+  }
+}
+
+export const userSignUp = async (userName , email , password , age)=>{
+    try {
+      const res = await axios.post("/user/signup", { userName, email, password, age });
+      console.log(res.data.data)
+      return res.data.data;
+    } catch (err) {
+      console.error(err.response ? err.response.data : err.message);
+      throw new Error(err?.response?.data?.message || "Sign up failed");
+    }
+}
+
+export const verifyOtp = async (otp)=>{
+  try {
+    const res = await axios.post("/user/verify",{otp})
+    return res.data.data
+  } catch (error){
+    console.log(error)
+    throw new Error(error?.response?.data?.message || "Invalid OTP");
+  }
+}
+
+
+
+
+
+
+
+
 
 export const getEventInfo = ()=>{
     const eventInfo = [

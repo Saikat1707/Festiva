@@ -1,22 +1,41 @@
 import React, { useState } from 'react'
 import '../CSS/componentsCSS/signup.css'
+import { userSignUp, verifyOtp } from '../BackendData'
+import { toast } from 'react-toastify'
+import {useNavigate} from "react-router-dom"
 const SignUpBox = () => {
-
+  const navigate = useNavigate()
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [age, setAge] = useState("")
   const [otp, setOtp] = useState('')
-
-  const handleSubmit = (e)=>{
+  const handleSubmit = async (e)=>{
     e.preventDefault()
-    console.log("form is submitted")
-    console.log(username,email,password,age)
+    try {
+      const user = await verifyOtp(otp)
+      toast.success("Account created successfully")
+      console.log(user)
+      setUsername("")
+      setAge("")
+      setEmail("")
+      setOtp("")
+      navigate("/")
+      
+    } catch (error) {
+      toast.error(error.message)
+    }
   }
 
-  const handleOtp = (e)=>{
+  const handleOtp = async (e)=>{
     e.preventDefault()
-    console.log("User is trying to get the otp")
+    try {
+      const user = await userSignUp(username,email,password,age)
+      toast.success("OTP sent to your email successfully")
+      console.log(user)
+    } catch (error) {
+      toast.error(error.message)
+    }
   }
 
   return (
@@ -58,10 +77,10 @@ const SignUpBox = () => {
               value={otp}
               className="login_input"
           />
-          <button onSubmit={handleOtp}>Get OTP</button>
+          <button onClick={handleOtp}>Get OTP</button>
         </div>
       </div>
-      <button className="signUp_button_submit" onSubmit={handleSubmit}>Sign Up</button>
+      <button className="signUp_button_submit" onClick={handleSubmit}>Sign Up</button>
       <h2>🌟 Have an account already? Click log in to access your Festiva account</h2>
     </div>
   )

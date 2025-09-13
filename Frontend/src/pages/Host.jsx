@@ -5,7 +5,7 @@ import { getHostEvents } from '../BackendData';
 import { FaDotCircle, FaEdit, FaEye } from 'react-icons/fa';
 
 const Host = () => {
-  const [isFirstEvent, setIsFirstEvent] = useState(false);
+  const [isFirstEvent, setIsFirstEvent] = useState(true);
   const hostedEvents = getHostEvents()
 
   return (

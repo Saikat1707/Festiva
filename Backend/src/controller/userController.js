@@ -22,6 +22,7 @@ export const userSignUp = async (req,res)=>{
         const user = await signUp(userName,email,hashPass,age,otp);
 
         const token = await generateToken(user._id)
+        console.log(token)
         if(!token) return badResponse(res,400,"Unable to generate token")
         res.cookie("token",token)
         

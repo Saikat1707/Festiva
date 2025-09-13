@@ -8,34 +8,13 @@ import Notification from '../pages/Notification'
 import Reviews from '../pages/Reviews'
 import Contact from '../pages/Contact'
 import NavBar from '../components/NavBar'
+import {Outlet} from 'react-router-dom'
+import "../App.css"
 const MainPages = () => {
   return (
     <div>
-        <NavBar/>
-      <div className="section home_section">
-        <Home/>
-      </div>
-      <div className="section host_section">
-        <Host/>
-      </div>
-      <div className="section ticket_section">
-        <Tickets/>
-      </div>
-      <div className="section profile_section">
-        <Profile/>
-      </div>
-      <div className="section about_section">
-        <About/>
-      </div>
-      <div className="section notification_section">
-        <Notification/>
-      </div>
-      <div className="section reviews_section">
-        <Reviews/>
-      </div>
-      <div className="section contact_section">
-        <Contact/>
-      </div>
+      <NavBar/>
+      <Outlet/>
     </div>
   )
 }
